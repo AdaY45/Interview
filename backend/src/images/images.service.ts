@@ -7,11 +7,10 @@ import {
   Image,
   Photo,
 } from '../shared/interfaces/images.interface';
+import * as process from 'process';
 
 @Injectable()
 export class ImagesService {
-  private baseUrl =
-    'https://my-json-server.typicode.com/icedrone/json-demo-server';
   constructor(private readonly httpService: HttpService) {}
 
   public getAll(): Observable<FormattedImage[]> {
@@ -44,13 +43,13 @@ export class ImagesService {
 
   public getPhotos(): Observable<Photo[][]> {
     return this.httpService
-      .get(`${this.baseUrl}/photos`)
+      .get(`${process.env.IMAGE_BASE_URL}/photos`)
       .pipe(map((response) => response.data));
   }
 
   public getImages(): Observable<Image[][]> {
     return this.httpService
-      .get(`${this.baseUrl}/images`)
+      .get(`${process.env.IMAGE_BASE_URL}/images`)
       .pipe(map((response) => response.data));
   }
 }
